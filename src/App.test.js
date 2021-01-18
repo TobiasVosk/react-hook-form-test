@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe("Name input", () => {
+  it("exists in document", () => {
+    const { queryByPlaceholderText } = render(<App />);
+    const nameInput = queryByPlaceholderText("Name");
+    expect(nameInput).toBeInTheDocument();
+  })
+})
