@@ -42,15 +42,19 @@ describe("Last name input", () => {
 describe("Submit button", () => {
   it("exists in document", () => {
     const { queryByTitle } = render(<App />);
-    const lastNameInput = queryByTitle("submitButton");
-    expect(lastNameInput).toBeInTheDocument();
+    const submit = queryByTitle("submitButton");
+    expect(submit).toBeInTheDocument();
   })
 
-  it("can be written on", ()  => {
+  it("Is not submitted if lastName is empty", ()  => {
     const { queryByTitle } = render(<App />);
-    const lastNameInput = queryByTitle("submitButton");
-    expect(lastNameInput.value).not.toBe("Changed the value");
-    fireEvent.change(lastNameInput, {target: {value: "Changed the value"}})
-    expect(lastNameInput.value).toBe("Changed the value");
+    const submit = screen.getByText('Submit');
+    fireEvent.click(submit);
+    //const lastNameValidation = queryByTitle("lastNameValidation");
+    //expect(screen.getByText('Last name is required')).toBeInTheDocument();
+    //expect(lastNameValidation).toBeInTheDocument();
+    expect(queryByTitle('submittedConfirmation')).toBeInTheDocument();
+
+    
   })
 })
