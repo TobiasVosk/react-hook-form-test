@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 describe("Name input", () => {
@@ -46,15 +46,15 @@ describe("Submit button", () => {
     expect(submit).toBeInTheDocument();
   })
 
-  it("Is not submitted if lastName is empty", ()  => {
+  it("Is not submitted if lastName is empty", async ()  => {
     const { queryByTitle } = render(<App />);
     const submit = screen.getByText('Submit');
-    fireEvent.click(submit);
-    //const lastNameValidation = queryByTitle("lastNameValidation");
-    //expect(screen.getByText('Last name is required')).toBeInTheDocument();
-    //expect(lastNameValidation).toBeInTheDocument();
-    expect(queryByTitle('submittedConfirmation')).toBeInTheDocument();
 
-    
+    await act(async () => {
+      fireEvent.click(submit);
+    }); 
+    const lastNameValidation = queryByTitle("lastNameValidation");
+    expect(screen.getByText('Last name is required')).toBeInTheDocument();
+    expect(lastNameValidation).toBeInTheDocument();    
   })
 })
