@@ -14,10 +14,10 @@ function App() {
         <div className="card-body">
           <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <input placeholder="Name" className="form-control mb-3" name="name" defaultValue="test" ref={register} />
+              <input placeholder="Name" className="form-control mb-3" name="name" defaultValue="test" ref={register} title="name"/>
 
               <div className="mb-3">
-                <input placeholder="Last Name" className={`form-control ${errors.lastName ? "invalid" : ""}`} name="lastName"
+                <input placeholder="Last Name" className={`form-control ${errors.lastName ? "invalid" : ""}`} name="lastName" title="lastName"
                   ref={register({
                     required: {value: true, message: "Name is required"}, 
                     pattern: {value: /^[a-zA-Z ]+$/i, message: "Name is invalid. Only letters and spaces are accepted"}
@@ -25,7 +25,7 @@ function App() {
                 {errors.lastName && <small className="text-danger">{errors.lastName.message}</small>}
               </div>
 
-              <input className="btn btn-primary btn-block" type="submit" />
+              <input className="btn btn-primary btn-block" type="submit" title="submitButton"/>
             </div>
           </form>
         </div>
