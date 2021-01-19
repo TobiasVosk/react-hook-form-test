@@ -22,6 +22,7 @@ function App() {
 
               <div className="mb-3">
                 <input placeholder="Last Name" className={`form-control ${errors.lastName ? "invalid" : ""}`} name="lastName" title="lastName"
+                  aria-invalid={errors.lastName ? "true" : "false"}
                   ref={register({
                     required: {value: true, message: "Last name is required"}, 
                     pattern: {value: /^[a-zA-Z ]+$/i, message: "Name is invalid. Only letters and spaces are accepted"}
@@ -29,8 +30,7 @@ function App() {
                 {errors.lastName && <small className="text-danger" title="lastNameValidation">{errors.lastName.message}</small>}
               </div>
               <Button className="btn btn-primary btn-block mb-3" type="submit" title="submitButton">Submit</Button>
-
-              {submitted && <small className="text-success" title="submittedConfirmation">Submitted</small>}
+                {submitted && <small className="text-success" title="submittedConfirmation">Submitted</small>}
             </div>
           </form>
         </div>
