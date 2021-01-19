@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Should match the snapshot 1`] = `
+<div
+  className="container mt-4"
+>
+  <div
+    className="card w-50 mx-auto"
+  >
+    <div
+      className="card-body"
+    >
+      <form
+        className="form-group"
+        onSubmit={[Function]}
+      >
+        <div>
+          <input
+            className="form-control mb-3"
+            defaultValue="test"
+            name="name"
+            placeholder="Name"
+            title="name"
+          />
+          <div
+            className="mb-3"
+          >
+            <input
+              aria-invalid="false"
+              className="form-control "
+              name="lastName"
+              placeholder="Last Name"
+              title="lastName"
+            />
+          </div>
+          <button
+            className="btn btn-primary btn-block mb-3 btn btn-primary"
+            disabled={false}
+            title="submitButton"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
