@@ -2,12 +2,8 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
-// import react-testing methods
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-
 // add custom jest matchers from jest-dom
 import '@testing-library/jest-dom/extend-expect'
-import React from 'react'
 import { getFromURL } from 'helpers'
 // the component to test
 
