@@ -8,4 +8,4 @@ export function getFromURL(url) {
     }).catch((error) => {
         return { type: 'ERROR', error }
     })
-} 
+}
