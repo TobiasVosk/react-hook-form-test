@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { submitUser } from 'submitUser';
 
+var classNames = require('classnames');
+
 function App() {
   const [latestSubmit, setLatestSubmit] = useState();
   const [submitted, setSubmitted] = useState(false);
@@ -19,7 +21,7 @@ function App() {
   };
 
   useEffect(() => {
-    if(latestSubmit) {
+    if (latestSubmit) {
       reset(latestSubmit);
     }
   }, [latestSubmit, reset])
@@ -33,14 +35,21 @@ function App() {
               <input placeholder="Name" className="form-control mb-3" name="name" defaultValue="test" ref={register} title="name" />
 
               <div className="mb-3">
-                <input placeholder="Last Name" className={`form-control ${errors.lastName ? "invalid" : ""}`} name="lastName" title="lastName"
-                  aria-invalid={errors.lastName ? "true" : "false"}
+                <input placeholder="Last Name"
+                  className={classNames('form-control', { 'invalid': errors.lastName })}
+                  name="lastName" title="lastName"
                   ref={register({
                     required: { value: true, message: "Last name is required" },
                     pattern: { value: /^[a-zA-Z ]+$/i, message: "Last name is invalid. Only letters and spaces are accepted" }
                   })} />
                 {errors.lastName && <small data-testid="last-name-validation-error" className="text-danger" title="lastNameValidation">{errors.lastName.message}</small>}
               </div>
+
+              <select data-testid="select-category" className="form-control mb-3" name="category" ref={register}>
+                <option value="">Select...</option>
+                <option value="A">Category A</option>
+                <option value="B">Category B</option>
+              </select>
               <Button data-testid="submit-btn" disabled={Object.keys(formState.dirtyFields).length === 0} className="btn btn-primary btn-block mb-3" type="submit" title="submitButton">Submit</Button>
               {submitted && <small className="text-success" title="submittedConfirmation">Submitted</small>}
             </div>

@@ -26,13 +26,33 @@ exports[`Form Should match the snapshot 1`] = `
               class="mb-3"
             >
               <input
-                aria-invalid="false"
-                class="form-control "
+                class="form-control"
                 name="lastName"
                 placeholder="Last Name"
                 title="lastName"
               />
             </div>
+            <select
+              class="form-control mb-3"
+              data-testid="select-category"
+              name="category"
+            >
+              <option
+                value=""
+              >
+                Select...
+              </option>
+              <option
+                value="A"
+              >
+                Category A
+              </option>
+              <option
+                value="B"
+              >
+                Category B
+              </option>
+            </select>
             <button
               class="btn btn-primary btn-block mb-3 btn btn-primary"
               data-testid="submit-btn"
