@@ -2,7 +2,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 import '@testing-library/jest-dom/extend-expect'
-import { getFromURL } from 'helpers'
+import { getFromURL } from '../helpers'
 
 
 

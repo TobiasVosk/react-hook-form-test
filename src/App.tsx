@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { submitUser } from 'submitUser';
+import { submitUser } from './submitUser';
 
 var classNames = require('classnames');
 
@@ -13,7 +13,7 @@ function App() {
 
   const { register, handleSubmit, errors, formState, reset } = useForm();
 
-  const onSubmit = data => {
+  const onSubmit = (data: {name: string, lastName: string}) => {
     setSubmitted(true);
     submitUser(data.name, data.lastName).then((res) => {
       setLatestSubmit(res);

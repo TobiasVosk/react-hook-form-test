@@ -1,4 +1,4 @@
-import { act, fireEvent, getByTitle, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import App from '../App';
 
 jest.mock('../submitUser');

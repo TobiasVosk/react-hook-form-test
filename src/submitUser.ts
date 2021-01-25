@@ -1,4 +1,4 @@
-export function submitUser(name, lastName) {
+export function submitUser(name: string, lastName: string) {
     return new Promise(resolve => setTimeout(() => {
         resolve({ name, lastName });
     }, 1000))
