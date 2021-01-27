@@ -83,7 +83,9 @@ function Form2() {
                 {formData.category && (
                   <div>
                     Category:
-                    <span data-testid="submitted-name">{formData.category}</span>
+                    <span data-testid="submitted-name">
+                      {formData.category}
+                    </span>
                   </div>
                 )}
               </div>

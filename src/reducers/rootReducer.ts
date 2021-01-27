@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { FormActionType, UPDATE_FIELD, UPDATE_FIELDS } from "../actionTypes";
+import { FormActionType, RESET, UPDATE_FIELD, UPDATE_FIELDS } from "../actionTypes";
 
 export interface FormState {
   name?: string;
@@ -18,6 +18,8 @@ const formDataReducer = (
       return { ...state, [action.payload.field]: action.payload.value };
     case UPDATE_FIELDS:
       return { ...state, ...action.payload};
+    case RESET:
+      return initialState;  
     default:
       return state;
   }

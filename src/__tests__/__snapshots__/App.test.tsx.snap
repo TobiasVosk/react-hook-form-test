@@ -60,7 +60,7 @@ exports[`Form Should match the snapshot 1`] = `
               title="submitButton"
               type="submit"
             >
-              Submit
+              Continue
             </button>
           </div>
         </form>
