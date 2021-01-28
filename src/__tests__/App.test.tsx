@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from "@testing-library/react";
+import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { Provider, useDispatch } from "react-redux";
 import { createStore } from "redux";
 import { RESET } from "../actionTypes";
@@ -6,6 +6,8 @@ import App from "../App";
 import reducer from "../reducers/rootReducer";
 
 jest.mock("../submitUser");
+
+afterEach(cleanup)
 
 function renderWithRedux(
   component: JSX.Element,
