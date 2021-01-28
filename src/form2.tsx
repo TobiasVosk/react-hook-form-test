@@ -1,13 +1,14 @@
-import "./App.css";
-import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { UPDATE_FIELDS } from "./actionTypes";
+import "./App.css";
 import { FormState, RootState } from "./reducers/rootReducer";
 import { submitUser } from "./submitUser";
 import { Form2Data } from "./types";
-import { UPDATE_FIELDS } from "./actionTypes";
 
 function Form2() {
   const [submitted, setSubmitted] = useState(false);
@@ -16,6 +17,8 @@ function Form2() {
     defaultValues: formData,
   });
   const dispatch = useDispatch();
+  const location = useLocation();
+  console.log(location);
 
   const onSubmit = (data: Form2Data) => {
     console.log(data);

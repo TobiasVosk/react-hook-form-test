@@ -1,13 +1,12 @@
-import "./App.css";
-import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { submitUser } from "./submitUser";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, FormState } from "./reducers/rootReducer";
-import { UPDATE_FIELDS } from "./actionTypes";
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { UPDATE_FIELDS } from "./actionTypes";
+import "./App.css";
+import { FormState, RootState } from "./reducers/rootReducer";
 import { Form1Data } from "./types";
 
 var classNames = require("classnames");
@@ -17,12 +16,11 @@ function Form1() {
   const formData: FormState = useSelector((state: RootState) => state.formData);
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, errors, formState, reset } = useForm({
+  const { register, handleSubmit, errors, formState } = useForm({
     defaultValues: formData,
   });
 
   const onSubmit = (data: Form1Data) => {
-    console.log(data);
     dispatch({
       type: UPDATE_FIELDS,
       payload: data,

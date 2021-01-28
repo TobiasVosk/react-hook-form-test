@@ -1,33 +1,30 @@
-import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { Provider, useDispatch } from "react-redux";
-import { createStore } from "redux";
-import { RESET } from "../actionTypes";
-import App from "../App";
-import reducer from "../reducers/rootReducer";
+import { act, cleanup, fireEvent } from "@testing-library/react";
+import React from "react";
+import Form1 from "../form1";
+import { createMockStoreNew, renderWithRedux } from "../testUtils";
+import { createMemoryHistory, History, MemoryHistory } from "history";
+
+let history: MemoryHistory<History.PoorMansUnknown>;
+history = createMemoryHistory({
+  initialEntries: ["/"],
+});
 
 jest.mock("../submitUser");
 
-afterEach(cleanup)
-
-function renderWithRedux(
-  component: JSX.Element,
-  { initialState, store = createStore(reducer, initialState) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{component}</Provider>),
-  };
-}
+afterEach(cleanup);
 
 describe("Form", () => {
-  it("Should match the snapshot", () => {
-    const { container } = renderWithRedux(<App />);
+  const store = createMockStoreNew({});
+  it("Should match the snapshot", async () => {
+    const { container } = renderWithRedux(<Form1 />, store, history);
     expect(container).toMatchSnapshot();
   });
 });
 
 describe("Name input", () => {
-  it("can be written on", () => {
-    const { queryByTitle } = renderWithRedux(<App />);
+  it("can be written on", async () => {
+    const store = createMockStoreNew({});
+    const { queryByTitle } = renderWithRedux(<Form1 />, store, history);
     const nameInput = queryByTitle("name");
     expect(nameInput.value).not.toBe("Changed the value");
     fireEvent.change(nameInput, { target: { value: "Changed the value" } });
@@ -36,8 +33,9 @@ describe("Name input", () => {
 });
 
 describe("Last name input", () => {
-  it("can be written on", () => {
-    const { queryByTitle } = renderWithRedux(<App />);
+  it("can be written on", async () => {
+    const store = createMockStoreNew({});
+    const { queryByTitle } = renderWithRedux(<Form1 />, store, history);
     const lastNameInput = queryByTitle("lastName");
     expect(lastNameInput.value).not.toBe("Changed the value");
     fireEvent.change(lastNameInput, { target: { value: "Changed the value" } });
@@ -46,8 +44,9 @@ describe("Last name input", () => {
 });
 
 describe("Select input", () => {
-  it("can be changed", () => {
-    const { queryByTestId } = renderWithRedux(<App />);
+  it("can be changed", async () => {
+    const store = createMockStoreNew({});
+    const { queryByTestId } = renderWithRedux(<Form1 />, store, history);
     const categorySelect = queryByTestId("select-category");
     expect(categorySelect.value).toBe("");
     fireEvent.change(categorySelect, { target: { value: "A" } });
@@ -57,7 +56,8 @@ describe("Select input", () => {
 
 describe("Submit button", () => {
   it("should be disabled if no input is dirty", async () => {
-    const { queryByTestId } = renderWithRedux(<App />);
+    const store = createMockStoreNew({});
+    const { queryByTestId } = renderWithRedux(<Form1 />, store, history);
     const submit = queryByTestId("submit-btn");
 
     expect(submit).toBeDisabled();
@@ -67,7 +67,12 @@ describe("Submit button", () => {
   });
 
   it("should not submit if lastName is empty", async () => {
-    const { queryByTitle, queryByTestId } = renderWithRedux(<App />);
+    const store = createMockStoreNew({});
+    const { queryByTitle, queryByTestId } = renderWithRedux(
+      <Form1 />,
+      store,
+      history
+    );
     const submit = queryByTestId("submit-btn");
 
     const lastNameInput = queryByTitle("lastName");
@@ -86,7 +91,12 @@ describe("Submit button", () => {
   });
 
   it("should not submit if lastName has symbols", async () => {
-    const { queryByTitle, queryByTestId } = renderWithRedux(<App />);
+    const store = createMockStoreNew({});
+    const { queryByTitle, queryByTestId } = renderWithRedux(
+      <Form1 />,
+      store,
+      history
+    );
     const submit = queryByTestId("submit-btn");
 
     const lastNameInput = queryByTitle("lastName");
@@ -106,7 +116,12 @@ describe("Submit button", () => {
   });
 
   it("should submit if lastName has letters and spaces, name is changed and select is empty", async () => {
-    const { queryByTitle, queryByTestId } = renderWithRedux(<App />);
+    const store = createMockStoreNew({});
+    const { queryByTitle, queryByTestId } = renderWithRedux(
+      <Form1 />,
+      store,
+      history
+    );
     const submit = queryByTestId("submit-btn");
 
     const name = "This is a wonderful name";
@@ -124,29 +139,16 @@ describe("Submit button", () => {
       fireEvent.click(submit);
     });
 
-    expect(nameInput).not.toBeInTheDocument();
-    expect(lastNameInput).not.toBeInTheDocument();
-
-    const addressInput = queryByTitle("address");
-    expect(addressInput).toBeInTheDocument();
-
-    // const newNameInput = queryByTitle("name");
-    // expect(newNameInput.value).toEqual(name);
-
-    // const newLastNameInput = queryByTitle("lastName");
-    // expect(newLastNameInput.value).toEqual(lastName);
-
-    // const submittedLastName = queryByTestId("submitted-last-name");
-    // expect(submittedLastName).toBeInTheDocument();
-    // expect(submittedLastName.textContent).toEqual(lastName);
-
-    // const submittedName = queryByTestId("submitted-name");
-    // expect(submittedName).toBeInTheDocument();
-    // expect(submittedName.textContent).toEqual(name);
+    expect(history.location.pathname).toEqual("/form2");
   });
 
   it("should submit if lastName has letters and spaces, name is changed and select is changed", async () => {
-    const { queryByTitle, queryByTestId } = renderWithRedux(<App />);
+    const store = createMockStoreNew({});
+    const { queryByTitle, queryByTestId } = renderWithRedux(
+      <Form1 />,
+      store,
+      history
+    );
     const submit = queryByTestId("submit-btn");
 
     const name = "This is a wonderful name";
@@ -167,27 +169,6 @@ describe("Submit button", () => {
       fireEvent.click(submit);
     });
 
-    expect(nameInput).not.toBeInTheDocument();
-    expect(lastNameInput).not.toBeInTheDocument();
-
-    const addressInput = queryByTitle("address");
-    expect(addressInput).toBeInTheDocument();
-
-    // expect(queryByTitle("lastNameValidation")).not.toBeInTheDocument();
-    // expect(queryByTitle("submittedConfirmation")).toBeInTheDocument();
-
-    // const newNameInput = queryByTitle("name");
-    // expect(newNameInput.value).toEqual(name);
-
-    // const newLastNameInput = queryByTitle("lastName");
-    // expect(newLastNameInput.value).toEqual(lastName);
-
-    // const submittedLastName = queryByTestId("submitted-last-name");
-    // expect(submittedLastName).toBeInTheDocument();
-    // expect(submittedLastName.textContent).toEqual(lastName);
-
-    // const submittedName = queryByTestId("submitted-name");
-    // expect(submittedName).toBeInTheDocument();
-    // expect(submittedName.textContent).toEqual(name);
+    expect(history.location.pathname).toEqual("/form2");
   });
 });
